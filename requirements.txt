@@ -1,8 +1,7 @@
-python-telegram-bot==20.8
-Flask
-gunicorn
+python-telegram-bot==20.7
+Flask==2.3.3
+gunicorn==21.2.0
 pyrogram==2.0.106
-tgcrypto
-requests
-pymongo==4.3.3
-
+tgcrypto==1.2.5
+requests==2.31.0
+pymongo==4.5.0
