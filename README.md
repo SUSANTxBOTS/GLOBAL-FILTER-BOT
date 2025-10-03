@@ -9,6 +9,6 @@
 </p>
 
 
-![Typing SVG](https://readme-typing-svg.herokuapp.com/?lines=♻+GLOBAL+FILTERBOT+!+CREATED+BY+ORBINEXX+DEVELOPER!+A+ADVANCE+BOT+WITH+COOL+FEATURE!)
+![Typing SVG](https://readme-typing-svg.herokuapp.com/?lines=♻+GLOBAL+FILTERBOT+CREATED+BY+ORBINEXX+DEVELOPER!+A+ADVANCE+BOT+WITH+COOL+FEATURE!)
 </p>
 
