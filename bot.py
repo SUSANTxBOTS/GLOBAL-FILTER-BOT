@@ -1,10 +1,10 @@
 import os
+import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
-import logging
 from pymongo import MongoClient
 
-# Load sensitive values from environment variables
+# Load environment variables
 API_TOKEN = os.getenv("API_TOKEN")
 MONGO_URI = os.getenv("MONGO_URI")
 OWNER_ID = int(os.getenv("OWNER_ID", "0"))
@@ -15,7 +15,7 @@ db = client["acx_bot"]
 filters_collection = db["filters"]
 users_collection = db["users"]
 
-# Configure logging
+# Logging setup
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
@@ -23,7 +23,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# Start command
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     users_collection.update_one(
         {"user_id": user.id},
@@ -34,18 +35,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     image_url = "https://files.catbox.moe/dc8yr1.jpg"
     mention = f'<a href="tg://openmessage?user_id={user.id}">{user.full_name}</a>'
     caption = (
-        f"𝖧i {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 🙌\n"
+        f"Hi {mention}, nice to meet you 🙌\n"
         "I am a Global Filter Bot. I can help you manage global filters across all groups.\n"
-        'Bʏ <a href="https://t.me/ORBINEXX_NETWORK">𝑶𝒓𝒃𝒊𝒏𝒆𝒙𝑿 𝑵𝒆𝒕𝒘𝒐𝒓𝒌</a>'
+        'By <a href="https://t.me/ORBINEXX_NETWORK">ORBINEXX Network</a>'
     )
 
     buttons = [
-        [InlineKeyboardButton("Lᴇᴛ's Rᴏʟʟ Bᴀʙʏ", url="http://t.me/GFilterBotRobot?startgroup=botstart")],
+        [InlineKeyboardButton("Let's Roll Baby", url="http://t.me/GFilterBotRobot?startgroup=botstart")],
         [
-            InlineKeyboardButton("Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ", url="https://t.me/ORBINEXX_SOCIETY"),
-            InlineKeyboardButton("Sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ", url="https://t.me/ORBINEXX_NETWORK")
+            InlineKeyboardButton("Support Chat", url="https://t.me/ORBINEXX_SOCIETY"),
+            InlineKeyboardButton("Support Channel", url="https://t.me/ORBINEXX_NETWORK")
         ],
-        [InlineKeyboardButton("Oᴡɴᴇʀ", url="https://t.me/NOONEISMINEE")]
+        [InlineKeyboardButton("Owner", url="https://t.me/NOONEISMINEE")]
     ]
     reply_markup = InlineKeyboardMarkup(buttons)
 
@@ -57,7 +58,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     )
 
 
-async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# Set filter command
+async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != OWNER_ID:
         await update.message.reply_text("You are not authorized to use this command.")
         return
@@ -82,7 +84,8 @@ async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     await update.message.reply_text(f"Filter set for keyword '{keyword_lower}'.")
 
 
-async def remove_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# Remove filter command
+async def remove_filter(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != OWNER_ID:
         await update.message.reply_text("You are not authorized to use this command.")
         return
@@ -99,7 +102,8 @@ async def remove_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
         await update.message.reply_text("This filter does not exist.")
 
 
-async def list_filters(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# List filters command
+async def list_filters(update: Update, context: ContextTypes.DEFAULT_TYPE):
     filters_cursor = filters_collection.find()
     filters_list = [f"{doc['keyword']}: {doc['text']}" for doc in filters_cursor]
     if filters_list:
@@ -108,7 +112,8 @@ async def list_filters(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         await update.message.reply_text("No filters have been set.")
 
 
-async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# Stats command
+async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != OWNER_ID:
         await update.message.reply_text("You are not authorized to use this command.")
         return
@@ -117,7 +122,8 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f"Total users: {user_count}")
 
 
-async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# Broadcast command
+async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != OWNER_ID:
         await update.message.reply_text("You are not authorized to use this command.")
         return
@@ -149,13 +155,14 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     )
 
 
-async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+# Reply to keywords
+async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message_text = update.message.text.lower()
     for filter_doc in filters_collection.find():
         if filter_doc["keyword"] in message_text:
             reply_text = f'<a href="{filter_doc["link"]}">{filter_doc["text"]}</a>'
             button = InlineKeyboardButton(
-                "🔰 𝑾𝑨𝑻𝑪𝑯 & 𝑫𝑶𝑾𝑵𝑳𝑶𝑫 𝑵𝑶𝑾 🔰",
+                "🔰 WATCH & DOWNLOAD NOW 🔰",
                 url=filter_doc["link"]
             )
             reply_markup = InlineKeyboardMarkup([[button]])
@@ -171,6 +178,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
 def main():
     application = Application.builder().token(API_TOKEN).build()
 
+    # Register handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("listfilters", list_filters))
     application.add_handler(CommandHandler("setfilter", set_filter))
@@ -179,6 +187,7 @@ def main():
     application.add_handler(CommandHandler("broadcast", broadcast))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply_to_keyword))
 
+    # Run the bot
     application.run_polling()
 
 
