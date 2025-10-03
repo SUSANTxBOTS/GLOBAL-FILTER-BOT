@@ -1,7 +1,7 @@
 import os
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext
 from pymongo import MongoClient
 
 # Load environment variables
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 # Start command
-def start(update, context):
+def start(update: Update, context: CallbackContext):
     user = update.effective_user
     users_collection.update_one(
         {"user_id": user.id},
@@ -59,7 +59,7 @@ def start(update, context):
 
 
 # Set filter command
-def set_filter(update, context):
+def set_filter(update: Update, context: CallbackContext):
     if update.effective_user.id != OWNER_ID:
         update.message.reply_text("You are not authorized to use this command.")
         return
@@ -85,7 +85,7 @@ def set_filter(update, context):
 
 
 # Remove filter command
-def remove_filter(update, context):
+def remove_filter(update: Update, context: CallbackContext):
     if update.effective_user.id != OWNER_ID:
         update.message.reply_text("You are not authorized to use this command.")
         return
@@ -103,7 +103,7 @@ def remove_filter(update, context):
 
 
 # List filters command
-def list_filters(update, context):
+def list_filters(update: Update, context: CallbackContext):
     filters_cursor = filters_collection.find()
     filters_list = [f"{doc['keyword']}: {doc['text']}" for doc in filters_cursor]
     if filters_list:
@@ -113,7 +113,7 @@ def list_filters(update, context):
 
 
 # Stats command
-def stats(update, context):
+def stats(update: Update, context: CallbackContext):
     if update.effective_user.id != OWNER_ID:
         update.message.reply_text("You are not authorized to use this command.")
         return
@@ -123,7 +123,7 @@ def stats(update, context):
 
 
 # Broadcast command
-def broadcast(update, context):
+def broadcast(update: Update, context: CallbackContext):
     if update.effective_user.id != OWNER_ID:
         update.message.reply_text("You are not authorized to use this command.")
         return
@@ -163,7 +163,7 @@ def broadcast(update, context):
 
 
 # Reply to keywords
-def reply_to_keyword(update, context):
+def reply_to_keyword(update: Update, context: CallbackContext):
     message_text = update.message.text.lower()
     for filter_doc in filters_collection.find():
         if filter_doc["keyword"] in message_text:
@@ -185,7 +185,7 @@ def reply_to_keyword(update, context):
 def main():
     try:
         # Updater use karo
-        updater = Updater(API_TOKEN, use_context=True)
+        updater = Updater(API_TOKEN)
         dp = updater.dispatcher
 
         # Register handlers
@@ -195,7 +195,7 @@ def main():
         dp.add_handler(CommandHandler("removefilter", remove_filter))
         dp.add_handler(CommandHandler("stats", stats))
         dp.add_handler(CommandHandler("broadcast", broadcast))
-        dp.add_handler(MessageHandler(Filters.text & ~Filters.command, reply_to_keyword))
+        dp.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply_to_keyword))
 
         # Start the Bot
         logger.info("Bot starting...")
