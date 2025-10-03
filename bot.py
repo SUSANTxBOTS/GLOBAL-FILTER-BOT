@@ -1,7 +1,7 @@
 import os
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 from pymongo import MongoClient
 
 # Load environment variables
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 # Start command
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def start(update: Update, context: CallbackContext):
     user = update.effective_user
     users_collection.update_one(
         {"user_id": user.id},
@@ -33,7 +33,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     image_url = "https://files.catbox.moe/dc8yr1.jpg"
-    mention = f'<a href="tg://openmessage?user_id={user.id}">{user.full_name}</a>'
+    mention = f'<a href="tg://openmessage?user_id={user.id}">{user.first_name}</a>'
     caption = (
         f"Hi {mention}, nice to meet you 🙌\n"
         "I am a Global Filter Bot. I can help you manage global filters across all groups.\n"
@@ -50,7 +50,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = InlineKeyboardMarkup(buttons)
 
-    await update.message.reply_photo(
+    update.message.reply_photo(
         photo=image_url,
         caption=caption,
         parse_mode="HTML",
@@ -59,20 +59,20 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # Set filter command
-async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def set_filter(update: Update, context: CallbackContext):
     if update.effective_user.id != OWNER_ID:
-        await update.message.reply_text("You are not authorized to use this command.")
+        update.message.reply_text("You are not authorized to use this command.")
         return
 
     args = update.message.text.split(" ", 1)
     if len(args) < 2:
-        await update.message.reply_text("Usage: /setfilter Keyword - Title - Link")
+        update.message.reply_text("Usage: /setfilter Keyword - Title - Link")
         return
 
     try:
         keyword, text, link = [part.strip() for part in args[1].split(" - ", 2)]
     except ValueError:
-        await update.message.reply_text("Incorrect format. Please use: /setfilter Keyword - Title - Link")
+        update.message.reply_text("Incorrect format. Please use: /setfilter Keyword - Title - Link")
         return
 
     keyword_lower = keyword.lower()
@@ -81,55 +81,55 @@ async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE):
         {"$set": {"text": text, "link": link}},
         upsert=True
     )
-    await update.message.reply_text(f"Filter set for keyword '{keyword_lower}'.")
+    update.message.reply_text(f"Filter set for keyword '{keyword_lower}'.")
 
 
 # Remove filter command
-async def remove_filter(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def remove_filter(update: Update, context: CallbackContext):
     if update.effective_user.id != OWNER_ID:
-        await update.message.reply_text("You are not authorized to use this command.")
+        update.message.reply_text("You are not authorized to use this command.")
         return
 
     if not context.args:
-        await update.message.reply_text("Usage: /removefilter <keyword>")
+        update.message.reply_text("Usage: /removefilter <keyword>")
         return
 
     keyword = " ".join(context.args).strip().lower()
     result = filters_collection.delete_one({"keyword": keyword})
     if result.deleted_count:
-        await update.message.reply_text(f"Filter removed for keyword '{keyword}'.")
+        update.message.reply_text(f"Filter removed for keyword '{keyword}'.")
     else:
-        await update.message.reply_text("This filter does not exist.")
+        update.message.reply_text("This filter does not exist.")
 
 
 # List filters command
-async def list_filters(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def list_filters(update: Update, context: CallbackContext):
     filters_cursor = filters_collection.find()
     filters_list = [f"{doc['keyword']}: {doc['text']}" for doc in filters_cursor]
     if filters_list:
-        await update.message.reply_text("Current filters:\n" + "\n".join(filters_list))
+        update.message.reply_text("Current filters:\n" + "\n".join(filters_list))
     else:
-        await update.message.reply_text("No filters have been set.")
+        update.message.reply_text("No filters have been set.")
 
 
 # Stats command
-async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def stats(update: Update, context: CallbackContext):
     if update.effective_user.id != OWNER_ID:
-        await update.message.reply_text("You are not authorized to use this command.")
+        update.message.reply_text("You are not authorized to use this command.")
         return
 
     user_count = users_collection.count_documents({})
-    await update.message.reply_text(f"Total users: {user_count}")
+    update.message.reply_text(f"Total users: {user_count}")
 
 
 # Broadcast command
-async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def broadcast(update: Update, context: CallbackContext):
     if update.effective_user.id != OWNER_ID:
-        await update.message.reply_text("You are not authorized to use this command.")
+        update.message.reply_text("You are not authorized to use this command.")
         return
 
     if not update.message.reply_to_message:
-        await update.message.reply_text("Please reply to the message you want to broadcast.")
+        update.message.reply_text("Please reply to the message you want to broadcast.")
         return
 
     from_chat_id = update.message.reply_to_message.chat_id
@@ -140,7 +140,7 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     for user in users:
         try:
-            await context.bot.forward_message(
+            context.bot.forward_message(
                 chat_id=user["user_id"],
                 from_chat_id=from_chat_id,
                 message_id=message_id
@@ -150,13 +150,13 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
             logger.error(f"Failed to forward message to {user['user_id']}: {e}")
             failure += 1
 
-    await update.message.reply_text(
+    update.message.reply_text(
         f"Broadcast complete.\nSuccess: {success}\nFailure: {failure}"
     )
 
 
 # Reply to keywords
-async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def reply_to_keyword(update: Update, context: CallbackContext):
     message_text = update.message.text.lower()
     for filter_doc in filters_collection.find():
         if filter_doc["keyword"] in message_text:
@@ -166,7 +166,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 url=filter_doc["link"]
             )
             reply_markup = InlineKeyboardMarkup([[button]])
-            await update.message.reply_text(
+            update.message.reply_text(
                 reply_text,
                 reply_markup=reply_markup,
                 parse_mode="HTML",
@@ -176,19 +176,22 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    application = Application.builder().token(API_TOKEN).build()
+    # Purana style use karo - Updater
+    updater = Updater(API_TOKEN, use_context=True)
+    dp = updater.dispatcher
 
     # Register handlers
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("listfilters", list_filters))
-    application.add_handler(CommandHandler("setfilter", set_filter))
-    application.add_handler(CommandHandler("removefilter", remove_filter))
-    application.add_handler(CommandHandler("stats", stats))
-    application.add_handler(CommandHandler("broadcast", broadcast))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply_to_keyword))
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("listfilters", list_filters))
+    dp.add_handler(CommandHandler("setfilter", set_filter))
+    dp.add_handler(CommandHandler("removefilter", remove_filter))
+    dp.add_handler(CommandHandler("stats", stats))
+    dp.add_handler(CommandHandler("broadcast", broadcast))
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, reply_to_keyword))
 
-    # Run the bot
-    application.run_polling()
+    # Start the Bot
+    updater.start_polling()
+    updater.idle()
 
 
 if __name__ == "__main__":
