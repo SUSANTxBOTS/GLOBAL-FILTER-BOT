@@ -3,26 +3,26 @@ services:
     name: global-filter-bot
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
     envVars:
       - key: API_TOKEN
-        value: ""
+        sync: false
       - key: MONGO_URI
-        value: ""
+        sync: false
       - key: OWNER_ID
-        value: ""
+        sync: false
 
   - type: worker
     name: global-filter-bot-worker
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python bot.py
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python bot.py"
     envVars:
       - key: API_TOKEN
-        value: ""
+        sync: false
       - key: MONGO_URI
-        value: ""
+        sync: false
       - key: OWNER_ID
-        value: ""
+        sync: false
