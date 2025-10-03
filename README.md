@@ -22,6 +22,13 @@
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a></p>
 
+<h3 align="center">
+    ─「 ᴅᴇᴩʟᴏʏ ᴏɴ ᴋᴏʏᴇʙ 」─
+</h3>
+<p align="center"><a href="https://app.koyeb.com/deploy?type=git&repository=github.com/Codeflix-Bots/FileStore&branch=master&name=master">
+  <img src="https://www.koyeb.com/static/images/deploy/button.svg" alt="Deploy On Koyeb">
+</a></p>
+
 ━━━━━━━━━━━━━━━━━━━━
 
 <h3 align="center">
