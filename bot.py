@@ -4,17 +4,17 @@ import logging
 from pymongo import MongoClient
 
 # Replace with your actual API token from BotFather
-API_TOKEN = '7704955106:AAEoBlI0ZqIasVkBXmaVnU8cOObOGO3HmXI'
+API_TOKEN = '7549878635:AAGF8i5xFYUGArvK5bqummt548vTZppNA08'
 
 # MongoDB configuration – replace with your own MongoDB URI if needed
-MONGO_URI = "mongodb+srv://bornhyper1:Bornhyper5911@cluster0.gmvpm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"  # or your MongoDB connection string
+MONGO_URI = "mongodb+srv://susantpc1232_db_user:MsGk2PTlLnzhh2VQ@cluster0.uqxwqld.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"  # or your MongoDB connection string
 client = MongoClient(MONGO_URI)
 db = client["acx_bot"]
 filters_collection = db["filters"]
 users_collection = db["users"]
 
 # Set your owner Telegram ID (only the owner can use certain commands)
-OWNER_ID = 6136203777  # Replace with your actual Telegram user ID
+OWNER_ID = 8156708830  # Replace with your actual Telegram user ID
 
 # Configure logging
 logging.basicConfig(
@@ -32,23 +32,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         upsert=True
     )
     
-    image_url = "https://files.catbox.moe/1c25gl.jpg"  # Replace with your image URL
+    image_url = "https://files.catbox.moe/dc8yr1.jpg"  # Replace with your image URL
     # Use the requested link scheme for the user mention:
     mention = f'<a href="tg://openmessage?user_id={user.id}">{user.full_name}</a>'
     caption = (
         f"𝖧i {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 🙌\n"
-        "I ᴀᴍ ᴀ ᴄᴜsᴛᴏᴍ ʙᴏᴛ ᴍᴀᴅᴇ ғᴏʀ ᴛᴇᴀᴍ ACXᴀɴɪᴍᴇ...\n"
-        'Bʏ <a href="https://t.me/ACX_NETWORK">ACX Nᴇᴛᴡᴏʀᴋ [🇮🇳]</a>'
+        "I am a Global Filter Bot. I can help you manage global filters across all groups.\n"
+        'Bʏ <a href="https://t.me/ORBINEXX_NETWORK">𝑶𝒓𝒃𝒊𝒏𝒆𝒙𝑿 𝑵𝒆𝒕𝒘𝒐𝒓𝒌</a>'
     )
     
     # Inline buttons arranged in three rows:
     buttons = [
         [InlineKeyboardButton("Lᴇᴛ's Rᴏʟʟ Bᴀʙʏ", url="http://t.me/GFilterBotRobot?startgroup=botstart")],
         [
-            InlineKeyboardButton("Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ", url="https://t.me/ACX_DISCUSSION"),
-            InlineKeyboardButton("Sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ", url="https://t.me/ACX_NETWORK")
+            InlineKeyboardButton("Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ", url="https://t.me/ORBINEXX_SOCIETY"),
+            InlineKeyboardButton("Sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ", url="https://t.me/ORBINEXX_NETWORK")
         ],
-        [InlineKeyboardButton("Oᴡɴᴇʀ", url="https://t.me/THEHYPER_ACX")]
+        [InlineKeyboardButton("Oᴡɴᴇʀ", url="https://t.me/NOONEISMINEE")]
     ]
     reply_markup = InlineKeyboardMarkup(buttons)
     
@@ -166,7 +166,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         if filter_doc["keyword"] in message_text:
             # Hyperlink the text using HTML formatting
             reply_text = f'<a href="{filter_doc["link"]}">{filter_doc["text"]}</a>'
-            button = InlineKeyboardButton("🔰 Wᴀᴛᴄʜ Nᴏᴡ 🔰", url=filter_doc["link"])
+            button = InlineKeyboardButton("🔰 𝑾𝑨𝑻𝑪𝑯 & 𝑫𝑶𝑾𝑵𝑳𝑶𝑨𝑫 𝑵𝑶𝑾 🔰", url=filter_doc["link"])
             reply_markup = InlineKeyboardMarkup([[button]])
             await update.message.reply_text(
                 reply_text,
