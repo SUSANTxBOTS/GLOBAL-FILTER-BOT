@@ -14,18 +14,18 @@
 
 
 <h2 align="center">
-    ──「 Telegram Global Filter Bot 」──
+    ──「 ᴛᴇʟᴇɢʀᴀᴍ ɢʟᴏʙᴀʟ ғɪʟᴛᴇʀ ʙɪᴛ」──
 <h3 align="center">
     ─「 ᴅᴇᴩʟᴏʏ ᴏɴ ʀᴇɴᴅᴇʀ 」─
 </h3>
-<p align="center"><a href="https://render.com/deploy?repo=https://github.com/SUSANTxBOTS/FILE_STORE-BOT">
+<p align="center"><a href="https://render.com/deploy?repo=https://github.com/SUSANTxBOTS/GLOBAL-FILTER-BOT">
 <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render">
 </a></p>
 
 <h3 align="center">
     ─「 ᴅᴇᴩʟᴏʏ ᴏɴ ᴋᴏʏᴇʙ 」─
 </h3>
-<p align="center"><a href="https://app.koyeb.com/deploy?type=git&repository=github.com/Codeflix-Bots/FileStore&branch=master&name=master">
+<p align="center"><a href="https://app.koyeb.com/deploy?type=git&repository=github.com/SUSANTxBOTS/GLOBAL-FILTER-BOT">
   <img src="https://www.koyeb.com/static/images/deploy/button.svg" alt="Deploy On Koyeb">
 </a></p>
 
@@ -36,19 +36,17 @@
 </h3>
 
 <p align="center">
-<a href="https://t.me/stranger_support"><img src="https://img.shields.io/badge/-Support%20Group-blue.svg?style=for-the-badge&logo=Telegram"></a>
+<a href="https://t.me/OrbinexX_Society"><img src="https://img.shields.io/badge/-Support%20Group-blue.svg?style=for-the-badge&logo=Telegram"></a>
 </p>
 
 <p align="center">
-<a href="https://telegram.me/Ace_networkop"><img src="https://img.shields.io/badge/-Support%20Channel-blue.svg?style=for-the-badge&logo=Telegram"></a>
+<a href="https://t.me/OrbinexX_Network"><img src="https://img.shields.io/badge/-Support%20Channel-blue.svg?style=for-the-badge&logo=Telegram"></a>
 </p>
 
 <p align="center">
-  Made with ❤️ by <strong>XBITCODE</strong>
+  Made with ❤️ by <strong>𝙊𝙧𝙗𝙞𝙣𝙚𝙭𝙓</strong>
 </p>
 ```
 
-- <b> _sᴩᴇᴄɪᴀʟ ᴛʜᴀɴᴋs ᴛᴏ Sparrow For [Core Development](https://github.com/sparrow9616)
-- <br>_sᴩᴇᴄɪᴀʟ ᴛʜᴀɴᴋs ᴛᴏ  Rehanna For [Youtube Proxy](https://github.com/gr8rehanna) 
-- <br>_Maintainer  [Ami](https://github.com/amjiddader)
-- <br>__sᴩᴇᴄɪᴀʟ ᴛʜᴀɴᴋs ᴛᴏ Team yukki and Anon for base repository ♥️.
+- <b> 𝙍𝙀𝙋𝙊 𝙊𝙒𝙉𝙀𝙍- [ʜʏᴘᴇʀ ᴊᴏʀᴇɴ](HTTPS://T.ME/NOONEISMINEE)
+- 
