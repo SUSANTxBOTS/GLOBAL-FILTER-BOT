@@ -48,5 +48,5 @@
 </p>
 ```
 
-- <b> 𝙍𝙀𝙋𝙊 𝙊𝙒𝙉𝙀𝙍- [ʜʏᴘᴇʀ ᴊᴏʀᴇɴ](HTTPS://T.ME/NOONEISMINEE)
-- 
+- <b> 𝙍𝙀𝙋𝙊 𝙊𝙒𝙉𝙀𝙍- [ʜʏᴘᴇʀ ᴊᴏʀᴇɴ](HTTPS://T.ME/NOONEISMINEE) ❤
+
