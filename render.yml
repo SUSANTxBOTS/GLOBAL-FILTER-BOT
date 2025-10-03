@@ -1,1 +1,29 @@
 
+services:
+  - type: web
+    name: global-filter-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: API_TOKEN
+        value: ""
+      - key: MONGO_URI
+        value: ""
+      - key: OWNER_ID
+        value: ""
+
+  - type: worker
+    name: global-filter-bot-worker
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: API_TOKEN
+        value: ""
+      - key: MONGO_URI
+        value: ""
+      - key: OWNER_ID
+        value: ""
