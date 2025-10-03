@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 # Start command
-def start(update: Update, context: CallbackContext):
+def start(update, context):
     user = update.effective_user
     users_collection.update_one(
         {"user_id": user.id},
@@ -59,7 +59,7 @@ def start(update: Update, context: CallbackContext):
 
 
 # Set filter command
-def set_filter(update: Update, context: CallbackContext):
+def set_filter(update, context):
     if update.effective_user.id != OWNER_ID:
         update.message.reply_text("You are not authorized to use this command.")
         return
@@ -85,7 +85,7 @@ def set_filter(update: Update, context: CallbackContext):
 
 
 # Remove filter command
-def remove_filter(update: Update, context: CallbackContext):
+def remove_filter(update, context):
     if update.effective_user.id != OWNER_ID:
         update.message.reply_text("You are not authorized to use this command.")
         return
@@ -103,7 +103,7 @@ def remove_filter(update: Update, context: CallbackContext):
 
 
 # List filters command
-def list_filters(update: Update, context: CallbackContext):
+def list_filters(update, context):
     filters_cursor = filters_collection.find()
     filters_list = [f"{doc['keyword']}: {doc['text']}" for doc in filters_cursor]
     if filters_list:
@@ -113,7 +113,7 @@ def list_filters(update: Update, context: CallbackContext):
 
 
 # Stats command
-def stats(update: Update, context: CallbackContext):
+def stats(update, context):
     if update.effective_user.id != OWNER_ID:
         update.message.reply_text("You are not authorized to use this command.")
         return
@@ -123,7 +123,7 @@ def stats(update: Update, context: CallbackContext):
 
 
 # Broadcast command
-def broadcast(update: Update, context: CallbackContext):
+def broadcast(update, context):
     if update.effective_user.id != OWNER_ID:
         update.message.reply_text("You are not authorized to use this command.")
         return
@@ -138,11 +138,20 @@ def broadcast(update: Update, context: CallbackContext):
 
     for user in users:
         try:
-            context.bot.send_message(
-                chat_id=user["user_id"],
-                text="📢 **Broadcast Message** 📢\n\n" + message.text,
-                parse_mode="HTML"
-            )
+            # Photo message handle karo
+            if message.photo:
+                context.bot.send_photo(
+                    chat_id=user["user_id"],
+                    photo=message.photo[-1].file_id,
+                    caption=message.caption if message.caption else ""
+                )
+            # Text message handle karo
+            else:
+                context.bot.send_message(
+                    chat_id=user["user_id"],
+                    text=message.text,
+                    parse_mode="HTML"
+                )
             success += 1
         except Exception as e:
             logger.error(f"Failed to send message to {user['user_id']}: {e}")
@@ -154,7 +163,7 @@ def broadcast(update: Update, context: CallbackContext):
 
 
 # Reply to keywords
-def reply_to_keyword(update: Update, context: CallbackContext):
+def reply_to_keyword(update, context):
     message_text = update.message.text.lower()
     for filter_doc in filters_collection.find():
         if filter_doc["keyword"] in message_text:
@@ -175,7 +184,7 @@ def reply_to_keyword(update: Update, context: CallbackContext):
 
 def main():
     try:
-        # Purana stable Updater use karo
+        # Updater use karo
         updater = Updater(API_TOKEN, use_context=True)
         dp = updater.dispatcher
 
