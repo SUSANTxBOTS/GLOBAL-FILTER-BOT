@@ -14,7 +14,7 @@ filters_collection = db["filters"]
 users_collection = db["users"]
 
 # Set your owner Telegram IDs (multiple owners can use certain commands)
-OWNER_IDS = [8156708830, 1234567890, 987654321]  # Removed leading zero from the third ID
+OWNER_IDS = [8156708830, 1234567890, 987654321, 7968389767]  # Removed leading zero from the third ID
 
 # Configure logging
 logging.basicConfig(
