@@ -43,12 +43,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     
     # Inline buttons arranged in three rows:
     buttons = [
-        [InlineKeyboardButton("➕ 𝑳𝒆𝒕𝒔 𝑹𝒐𝒍𝒍 𝑩𝒂𝒃𝒚 ➕", url="http://t.me/GFilterRobot?startgroup=botstart")],
+        [InlineKeyboardButton("✙ ʌᴅᴅ ϻє ɪη ʏσυʀ ɢʀσυᴘ ✙", url="http://t.me/GFilterRobot?startgroup=botstart")],
         [
-            InlineKeyboardButton("⌯ 𝑺𝒖𝒑𝒑𝒐𝒓𝒕 𝑪𝒉𝒂𝒕 ⌯", url="https://t.me/Thronex_Chats"),
-            InlineKeyboardButton("⌯ 𝑺𝒖𝒑𝒑𝒐𝒓𝒕 𝑪𝒉𝒂𝒏𝒏𝒆𝒍 ⌯", url="https://t.me/ThronexCodex")
+            InlineKeyboardButton("˹ sυᴘᴘσʀᴛ ˼", url="https://t.me/Thronex_Chats"),
+            InlineKeyboardButton("˹ υᴘᴅᴧᴛєs ˼", url="https://t.me/ThronexCodex")
         ],
-        [InlineKeyboardButton("⌯ 𝑶𝒘𝒏𝒆𝒓 ⌯", url="https://t.me/xAkairo")]
+        [InlineKeyboardButton("˹ ❍ᴡηєʀ ˼", url="https://t.me/xAkairo")]
     ]
     reply_markup = InlineKeyboardMarkup(buttons)
     
@@ -165,7 +165,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     for filter_doc in filters_collection.find():
         if filter_doc["keyword"] in message_text:
             # Hyperlink the text using HTML formatting
-            reply_text = f'<b><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></b>'
+            reply_text = f'<b><i><u><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></i></u></b>'
             button1 = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
             reply_markup = InlineKeyboardMarkup([[button1]])
             await update.message.reply_text(
