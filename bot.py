@@ -10,7 +10,7 @@ API_TOKEN = os.getenv('BOT_TOKEN', '7704955106:AAFEJKG0O2sONGaR6ZQNnRSwZ79sYqOri
 MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://herukosupplier_db_user:ZwLZCi4O46uic1Wv@cluster0.k0d7xeb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 TMDB_API_KEY = "371c10909d11f866a3a1786e3a43cd8e"
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
-OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767]
+OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767, 8085299659]
 BACKUP_CHANNEL = "https://t.me/+6y9Ktm_6Oho2M2Q1"
 
 try:
@@ -156,7 +156,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         
         caption = (
             f"<b>𝖧𝖾𝗅𝗅𝗈 {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 💌</b>\n"
-            "<b>𝖨 𝖺𝗆 𝖺 𝖼𝗎𝗌𝗍𝗈𝗆 𝖻𝗈𝗍 𝗆𝖺𝖽𝖾 𝖿𝗈𝗋 𝗍𝖾𝖺𝗆 ...𝖮𝗋𝖻𝗂𝗇𝖾𝗑𝖷 𝖭𝖾𝗍𝗐𝗈𝗋𝗄</b>\n"
+            "<b>𝖨 𝖺𝗆 𝖺 𝖼𝗎𝗌𝗍𝗈𝗆 𝖻𝗈𝗍 𝗆𝖺𝖽𝖾 𝖿𝗈𝗋 𝗍𝖾𝖺𝗆 ...𝖮𝗋𝖻𝗂𝗇𝖾𝗑𝖷</b>\n"
             '<b>❖ 𝖯𝗈𝗐𝖾𝗋𝖾𝖽 𝖻𝗒  :- <a href="https://t.me/xAkairo">𝘼𝙠𝙖𝙞𝙧𝙤</a></b>'
         )
         
