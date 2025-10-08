@@ -32,7 +32,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         upsert=True
     )
     
-    image_url = "https://files.catbox.moe/j7u2pk.jpg"  # Replace with your image URL
+    image_url = "https://files.catbox.moe/vqomxt.jpg"  # Replace with your image URL
     # Use the requested link scheme for the user mention:
     mention = f'<a href="tg://openmessage?user_id={user.id}">{user.full_name}</a>'
     caption = (
