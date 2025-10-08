@@ -9,7 +9,7 @@ API_TOKEN = '7704955106:AAFEJKG0O2sONGaR6ZQNnRSwZ79sYqOriIc'
 # MongoDB configuration – replace with your own MongoDB URI if needed
 MONGO_URI = "mongodb+srv://herukosupplier_db_user:ZwLZCi4O46uic1Wv@cluster0.k0d7xeb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"  # or your MongoDB connection string
 client = MongoClient(MONGO_URI)
-db = client["xAkairo"]
+db = client["xAkairoo"]
 filters_collection = db["filters"]
 users_collection = db["users"]
 
