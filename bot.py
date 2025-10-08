@@ -167,8 +167,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
             # Hyperlink the text using HTML formatting
             reply_text = f'<b><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></b>'
             button1 = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
-            button2 = InlineKeyboardButton2("⧉ 𝗕𝗮𝗰𝗸 𝗨𝗽 ⧉", url='https://t.me/ThronexCodex')
-            reply_markup = InlineKeyboardMarkup([[[button1, button2]]])
+            reply_markup = InlineKeyboardMarkup([[button1]])
             await update.message.reply_text(
                 reply_text,
                 reply_markup=reply_markup,
