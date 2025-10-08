@@ -13,8 +13,8 @@ db = client["xAkairo"]
 filters_collection = db["filters"]
 users_collection = db["users"]
 
-# Set your owner Telegram ID (only the owner can use certain commands)
-OWNER_ID = 8156708830  # Replace with your actual Telegram user ID
+# Set your owner Telegram IDs (multiple owners can use certain commands)
+OWNER_IDS = [8156708830, 1234567890, 0987654321]  # Replace with actual Telegram user IDs
 
 # Configure logging
 logging.basicConfig(
@@ -61,8 +61,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # Only owner can use this command.
-    if update.effective_user.id != OWNER_ID:
+    # Only owners can use this command.
+    if update.effective_user.id not in OWNER_IDS:
         await update.message.reply_text("You are not authorized to use this command.")
         return
 
@@ -89,8 +89,8 @@ async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
 
 async def remove_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # Only owner can use this command.
-    if update.effective_user.id != OWNER_ID:
+    # Only owners can use this command.
+    if update.effective_user.id not in OWNER_IDS:
         await update.message.reply_text("You are not authorized to use this command.")
         return
 
@@ -116,8 +116,8 @@ async def list_filters(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 
 async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # Only owner can use this command.
-    if update.effective_user.id != OWNER_ID:
+    # Only owners can use this command.
+    if update.effective_user.id not in OWNER_IDS:
         await update.message.reply_text("You are not authorized to use this command.")
         return
 
@@ -126,8 +126,8 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # Only owner can use this command.
-    if update.effective_user.id != OWNER_ID:
+    # Only owners can use this command.
+    if update.effective_user.id not in OWNER_IDS:
         await update.message.reply_text("You are not authorized to use this command.")
         return
 
