@@ -11,7 +11,7 @@ MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://herukosupplier_db_user:ZwLZCi4
 TMDB_API_KEY = "371c10909d11f866a3a1786e3a43cd8e"
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767, 8085299659]
-BACKUP_CHANNEL = "https://t.me/+6y9Ktm_6Oho2M2Q1"
+BACKUP_CHANNEL = "https://t.me/+zSzt4s9xq_ZmZWZl"
 
 try:
     import requests
