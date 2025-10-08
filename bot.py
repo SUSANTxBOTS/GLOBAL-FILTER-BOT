@@ -14,7 +14,7 @@ filters_collection = db["filters"]
 users_collection = db["users"]
 
 # Set your owner Telegram ID (only the owner can use certain commands)
-OWNER_ID = 8156708830  # Replace with your actual Telegram user ID
+OWNER_ID = 8156708830 7968389767 8085299659  # Replace with your actual Telegram user ID
 
 # Configure logging
 logging.basicConfig(
@@ -167,6 +167,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
             # Hyperlink the text using HTML formatting
             reply_text = f'<b><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></b>'
             button = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
+            button = InlineKeyboardButton("⧉ 𝗕𝗮𝗰𝗸 𝗨𝗽 ⧉", url='https://t.me/ThronexCodex')
             reply_markup = InlineKeyboardMarkup([[button]])
             await update.message.reply_text(
                 reply_text,
