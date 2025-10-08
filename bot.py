@@ -18,7 +18,6 @@ try:
     TMDB_AVAILABLE = True
 except ImportError:
     TMDB_AVAILABLE = False
-    print("⚠️  requests module not available. TMDB features disabled.")
 
 try:
     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=10000, connectTimeoutMS=10000, socketTimeoutMS=10000)
@@ -62,19 +61,16 @@ async def search_tmdb(query):
                 media_type = result.get('media_type', 'movie')
                 title = result.get('title') or result.get('name', 'N/A')
                 overview = result.get('overview', 'No overview available.')
-                poster_path = result.get('poster_path')
                 backdrop_path = result.get('backdrop_path')
                 release_date = result.get('release_date') or result.get('first_air_date', 'N/A')
                 vote_average = result.get('vote_average', 'N/A')
                 
-                poster_url = f"https://image.tmdb.org/t/p/w500{poster_path}" if poster_path else None
-                backdrop_url = f"https://image.tmdb.org/t/p/w500{backdrop_path}" if backdrop_path else None
+                backdrop_url = f"https://image.tmdb.org/t/p/w780{backdrop_path}" if backdrop_path else None
                 
                 return {
                     'success': True,
                     'title': title,
                     'overview': overview,
-                    'poster_url': poster_url,
                     'backdrop_url': backdrop_url,
                     'media_type': media_type,
                     'release_date': release_date,
@@ -100,8 +96,7 @@ async def get_anime_info(query):
         overview = tmdb_data['overview']
         media_type = tmdb_data['media_type']
         release_date = tmdb_data['release_date']
-        rating = tmdb_data['rating']
-        poster_url = tmdb_data['poster_url']
+        backdrop_url = tmdb_data['backdrop_url']
         
         if media_type == 'tv':
             caption = (
@@ -130,8 +125,7 @@ async def get_anime_info(query):
         return {
             'success': True,
             'caption': caption,
-            'poster_url': poster_url,
-            'backdrop_url': tmdb_data['backdrop_url'],
+            'backdrop_url': backdrop_url,
             'media_type': media_type
         }
         
@@ -333,28 +327,30 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         message_text = update.message.text.lower()
         
         for filter_doc in filters_collection.find():
-            if filter_doc["keyword"] in message_text:
+            keyword = filter_doc["keyword"].lower()
+            
+            if keyword in message_text or message_text in keyword:
                 if TMDB_AVAILABLE:
                     anime_data = await get_anime_info(filter_doc["text"])
                     
                     if anime_data['success']:
                         caption = anime_data['caption']
-                        image_url = anime_data['poster_url'] or anime_data['backdrop_url']
+                        backdrop_url = anime_data['backdrop_url']
                     else:
                         caption = f'<b><i><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></i></b>'
-                        image_url = None
+                        backdrop_url = None
                 else:
                     caption = f'<b><i><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></i></b>'
-                    image_url = None
+                    backdrop_url = None
                 
                 button1 = InlineKeyboardButton("⌯ 𝖶𝖺𝗍𝖼𝗁 𝖭𝗈𝗐 ⌯", url=filter_doc["link"])
                 button2 = InlineKeyboardButton("⌯ 𝖡𝖺𝖼𝗄𝗎𝗉 ⌯", url=BACKUP_CHANNEL)
                 reply_markup = InlineKeyboardMarkup([[button1], [button2]])
                 
-                if image_url:
+                if backdrop_url:
                     try:
                         await update.message.reply_photo(
-                            photo=image_url,
+                            photo=backdrop_url,
                             caption=caption,
                             reply_markup=reply_markup,
                             parse_mode="HTML"
@@ -395,12 +391,12 @@ async def tmdb_search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         
         if anime_data['success']:
             caption = anime_data['caption']
-            image_url = anime_data['poster_url'] or anime_data['backdrop_url']
+            backdrop_url = anime_data['backdrop_url']
             
-            if image_url:
+            if backdrop_url:
                 try:
                     await update.message.reply_photo(
-                        photo=image_url,
+                        photo=backdrop_url,
                         caption=caption,
                         parse_mode="HTML"
                     )
@@ -478,9 +474,10 @@ def main():
             print("🔧 Starting polling...")
             if TMDB_AVAILABLE:
                 print("🎬 TMDB Feature: Enabled")
-                print("📺 Anime/Movie Format: Professional")
+                print("🖼️  Using Backdrops instead of Posters")
+                print("🔍 Partial Keyword Matching: Enabled")
             else:
-                print("⚠️  TMDB Feature: Disabled (requests module missing)")
+                print("⚠️  TMDB Feature: Disabled")
             
             application.run_polling(
                 poll_interval=2,
