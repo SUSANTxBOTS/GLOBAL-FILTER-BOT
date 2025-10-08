@@ -172,7 +172,7 @@ reply_text = f'<b><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></b>'
 button1 = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
 
 # Create the second button, which is identical to the first
-button2 = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
+button2 = InlineKeyboardButton("🝰 𝗕𝗮𝗰𝗸 𝗨𝗽 🝰", url=filter_doc["link"])
 
 # The key change: The list of buttons in the inner list of InlineKeyboardMarkup 
 # now contains BOTH button1 and button2.
