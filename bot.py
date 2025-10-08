@@ -43,7 +43,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     
     # Inline buttons arranged in three rows:
     buttons = [
-        [InlineKeyboardButton("➕ 𝑳𝒆𝒕𝒔 𝑹𝒐𝒍𝒍 𝑩𝒂𝒃𝒚 ➕", url="http://t.me/GFilterBotRobot?startgroup=botstart")],
+        [InlineKeyboardButton("➕ 𝑳𝒆𝒕𝒔 𝑹𝒐𝒍𝒍 𝑩𝒂𝒃𝒚 ➕", url="http://t.me/GFilterRobot?startgroup=botstart")],
         [
             InlineKeyboardButton("❖ 𝑺𝒖𝒑𝒑𝒐𝒓𝒕 𝑪𝒉𝒂𝒕 ❖", url="https://t.me/Thronex_Chats"),
             InlineKeyboardButton("❖ 𝑺𝒖𝒑𝒑𝒐𝒓𝒕 𝑪𝒉𝒂𝒏𝒏𝒆𝒍 ❖", url="https://t.me/ThronexCodex")
