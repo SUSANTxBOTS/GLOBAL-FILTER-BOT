@@ -37,8 +37,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     mention = f'<a href="tg://openmessage?user_id={user.id}">{user.full_name}</a>'
     caption = (
         f"<b>𝖧ello {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 💌</b>\n"
-        "<b>I ᴀᴍ ᴀ ᴄᴜsᴛᴏᴍ ʙᴏᴛ ᴍᴀᴅᴇ ғᴏʀ ᴛᴇᴀᴍ ...𝗢ʀ𝐛ɪɴᴇx𝗫</b>\n\n"
-        '<b><i>❖ 𝐏ᴏᴡᴇʀᴇᴅ ʙʏ  :-  <a href="https://t.me/xAkairo">𝘼𝙠𝙖𝙞𝙧𝙤</a></i></b>'
+        "<b>I ᴀᴍ ᴀ ᴄᴜsᴛᴏᴍ ʙᴏᴛ ᴍᴀᴅᴇ ғᴏʀ ᴛᴇᴀᴍ ...𝗢ʀ𝐛ɪɴᴇx𝗫</b>\n"
+        '<b><i>❖ 𝐏ᴏᴡᴇʀᴇᴅ ʙʏ  :- <a href="https://t.me/xAkairo">𝘼𝙠𝙖𝙞𝙧𝙤</a></i></b>'
     )
     
     # Inline buttons arranged in three rows:
