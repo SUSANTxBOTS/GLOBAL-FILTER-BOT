@@ -36,9 +36,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     # Use the requested link scheme for the user mention:
     mention = f'<a href="tg://openmessage?user_id={user.id}">{user.full_name}</a>'
     caption = (
-        f"𝖧ello {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 💌\n"
-        "I ᴀᴍ ᴀ ᴄᴜsᴛᴏᴍ ʙᴏᴛ ᴍᴀᴅᴇ ғᴏʀ ᴛᴇᴀᴍ ...𝗢ʀ𝐛ɪɴᴇx𝗫\n"
-        '❖ 𝐏ᴏᴡᴇʀᴇᴅ ʙʏ  :-  <a href="https://t.me/xAkairo">𝘼𝙠𝙖𝙞𝙧𝙤</a>'
+        f"<b>𝖧ello {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 💌</b>\n"
+        "<b>I ᴀᴍ ᴀ ᴄᴜsᴛᴏᴍ ʙᴏᴛ ᴍᴀᴅᴇ ғᴏʀ ᴛᴇᴀᴍ ...𝗢ʀ𝐛ɪɴᴇx𝗫\n\n"
+        '<blockquote><b><i>❖ 𝐏ᴏᴡᴇʀᴇᴅ ʙʏ  :-  <a href="https://t.me/xAkairo">𝘼𝙠𝙖𝙞𝙧𝙤</a></i></b></blockquote>'
     )
     
     # Inline buttons arranged in three rows:
@@ -166,7 +166,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         if filter_doc["keyword"] in message_text:
             # Hyperlink the text using HTML formatting
             reply_text = f'<a href="{filter_doc["link"]}">{filter_doc["text"]}</a>'
-            button = InlineKeyboardButton("🔰 𝑾𝒂𝒕𝒄𝒉 𝑵𝒐𝒘 🔰", url=filter_doc["link"])
+            button = InlineKeyboardButton("🔰 𝙒𝘼𝙏𝘾𝙃 𝙉𝙊𝙒 🔰", url=filter_doc["link"])
             reply_markup = InlineKeyboardMarkup([[button]])
             await update.message.reply_text(
                 reply_text,
