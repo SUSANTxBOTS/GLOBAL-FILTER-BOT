@@ -5,8 +5,6 @@ from pymongo import MongoClient
 import time
 import sys
 import os
-import requests
-import json
 
 API_TOKEN = os.getenv('BOT_TOKEN', '7704955106:AAFEJKG0O2sONGaR6ZQNnRSwZ79sYqOriIc')
 MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://herukosupplier_db_user:ZwLZCi4O46uic1Wv@cluster0.k0d7xeb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
@@ -14,6 +12,13 @@ TMDB_API_KEY = "371c10909d11f866a3a1786e3a43cd8e"
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767]
 BACKUP_CHANNEL = "https://t.me/ThronexCodex"
+
+try:
+    import requests
+    TMDB_AVAILABLE = True
+except ImportError:
+    TMDB_AVAILABLE = False
+    print("⚠️  requests module not available. TMDB features disabled.")
 
 try:
     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=10000, connectTimeoutMS=10000, socketTimeoutMS=10000)
@@ -36,6 +41,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 async def search_tmdb(query):
+    if not TMDB_AVAILABLE:
+        return {'success': False, 'error': 'TMDB not available'}
+    
     try:
         search_url = f"{TMDB_BASE_URL}/search/multi"
         params = {
@@ -65,7 +73,7 @@ async def search_tmdb(query):
                 return {
                     'success': True,
                     'title': title,
-                    'overview': overview[:300] + '...' if len(overview) > 300 else overview,
+                    'overview': overview,
                     'poster_url': poster_url,
                     'backdrop_url': backdrop_url,
                     'media_type': media_type,
@@ -77,6 +85,58 @@ async def search_tmdb(query):
         
     except Exception as e:
         logger.error(f"TMDB search error: {e}")
+        return {'success': False, 'error': str(e)}
+
+async def get_anime_info(query):
+    if not TMDB_AVAILABLE:
+        return {'success': False, 'error': 'TMDB not available'}
+    
+    try:
+        tmdb_data = await search_tmdb(query)
+        if not tmdb_data['success']:
+            return tmdb_data
+        
+        title = tmdb_data['title']
+        overview = tmdb_data['overview']
+        media_type = tmdb_data['media_type']
+        release_date = tmdb_data['release_date']
+        rating = tmdb_data['rating']
+        poster_url = tmdb_data['poster_url']
+        
+        if media_type == 'tv':
+            caption = (
+                f"›› 𝖲𝗁𝗈𝗐: {title}\n"
+                f"›› 𝖲𝖾𝖺𝗌𝗈𝗇: 1\n"
+                f"›› 𝖳𝗈𝗍𝖺𝗅 𝖤𝗉𝗂𝗌𝗈𝖽𝖾𝗌: 24\n"
+                f"›› 𝖦𝖾𝗇𝗋𝖾𝗌: Animation | Action & Adventure | Drama\n"
+                f"›› 𝖰𝗎𝖺𝗅𝗂𝗍𝗒: 1080p / 720p / 480p\n"
+                f"›› 𝖠𝗎𝖽𝗂𝗈: 𝖧𝗂𝗇𝖽𝗂 | #𝖮𝖿𝖿𝗂𝖼𝗂𝖺𝗅\n\n"
+                f"›› 𝖲𝗒𝗇𝗈𝗉𝗌𝗂𝗌:\n{overview}\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━"
+            )
+        else:
+            year = release_date[:4] if release_date != 'N/A' else 'N/A'
+            caption = (
+                f"›› 𝖬𝗈𝗏𝗂𝖾: {title}\n"
+                f"›› 𝖸𝖾𝖺𝗋: {year}\n"
+                f"›› 𝖣𝗎𝗋𝖺𝗍𝗂𝗈𝗇: 1h 46min\n"
+                f"›› 𝖦𝖾𝗇𝗋𝖾𝗌: Animation | Romance | Drama\n"
+                f"›› 𝖰𝗎𝖺𝗅𝗂𝗍𝗒: 1080p\n"
+                f"›› 𝖠𝗎𝖽𝗂𝗈: 𝖧𝗂𝗇𝖽𝗂 | #𝖮𝖿𝖿𝗂𝖼𝗂𝖺𝗅\n\n"
+                f"›› 𝖲𝗒𝗇𝗈𝗉𝗌𝗂𝗌:\n{overview}\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━"
+            )
+        
+        return {
+            'success': True,
+            'caption': caption,
+            'poster_url': poster_url,
+            'backdrop_url': tmdb_data['backdrop_url'],
+            'media_type': media_type
+        }
+        
+    except Exception as e:
+        logger.error(f"Anime info error: {e}")
         return {'success': False, 'error': str(e)}
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -274,18 +334,15 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         
         for filter_doc in filters_collection.find():
             if filter_doc["keyword"] in message_text:
-                tmdb_data = await search_tmdb(filter_doc["text"])
-                
-                if tmdb_data['success']:
-                    caption = (
-                        f"<b>🎬 {tmdb_data['title']}</b>\n\n"
-                        f"<b>📅 Release Date:</b> {tmdb_data['release_date']}\n"
-                        f"<b>⭐ Rating:</b> {tmdb_data['rating']}/10\n"
-                        f"<b>📝 Overview:</b> {tmdb_data['overview']}\n\n"
-                        f"<b>🔗 {filter_doc['text']}</b>"
-                    )
+                if TMDB_AVAILABLE:
+                    anime_data = await get_anime_info(filter_doc["text"])
                     
-                    image_url = tmdb_data['poster_url'] or tmdb_data['backdrop_url']
+                    if anime_data['success']:
+                        caption = anime_data['caption']
+                        image_url = anime_data['poster_url'] or anime_data['backdrop_url']
+                    else:
+                        caption = f'<b><i><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></i></b>'
+                        image_url = None
                 else:
                     caption = f'<b><i><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></i></b>'
                     image_url = None
@@ -323,6 +380,10 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
 
 async def tmdb_search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
+        if not TMDB_AVAILABLE:
+            await update.message.reply_text("❌ TMDB feature is currently unavailable.")
+            return
+            
         if not context.args:
             await update.message.reply_text("𝖴𝗌𝖺𝗀𝖾: /tmdb <movie/series name>")
             return
@@ -330,18 +391,11 @@ async def tmdb_search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         query = " ".join(context.args)
         await update.message.reply_text(f"🔍 <i>Searching for '{query}' on TMDB...</i>", parse_mode="HTML")
         
-        tmdb_data = await search_tmdb(query)
+        anime_data = await get_anime_info(query)
         
-        if tmdb_data['success']:
-            caption = (
-                f"<b>🎬 {tmdb_data['title']}</b>\n\n"
-                f"<b>📅 Release Date:</b> {tmdb_data['release_date']}\n"
-                f"<b>⭐ Rating:</b> {tmdb_data['rating']}/10\n"
-                f"<b>📝 Overview:</b> {tmdb_data['overview']}\n\n"
-                f"<b>🎭 Type:</b> {tmdb_data['media_type'].title()}"
-            )
-            
-            image_url = tmdb_data['poster_url'] or tmdb_data['backdrop_url']
+        if anime_data['success']:
+            caption = anime_data['caption']
+            image_url = anime_data['poster_url'] or anime_data['backdrop_url']
             
             if image_url:
                 try:
@@ -389,7 +443,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 Just type any keyword that has been set by the owner!
 
 🎬 <b>TMDB Feature:</b>
-Auto-fetches movie/series info with posters when filters are triggered!
+Auto-fetches anime/movie info with professional format!
         """
         await update.message.reply_text(help_text, parse_mode="HTML")
     except Exception as e:
@@ -422,7 +476,11 @@ def main():
 
             print("✅ Bot initialized successfully!")
             print("🔧 Starting polling...")
-            print("🎬 TMDB Feature: Enabled")
+            if TMDB_AVAILABLE:
+                print("🎬 TMDB Feature: Enabled")
+                print("📺 Anime/Movie Format: Professional")
+            else:
+                print("⚠️  TMDB Feature: Disabled (requests module missing)")
             
             application.run_polling(
                 poll_interval=2,
