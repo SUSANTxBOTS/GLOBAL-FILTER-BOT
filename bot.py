@@ -9,7 +9,7 @@ API_TOKEN = '7704955106:AAFEJKG0O2sONGaR6ZQNnRSwZ79sYqOriIc'
 # MongoDB configuration – replace with your own MongoDB URI if needed
 MONGO_URI = "mongodb+srv://herukosupplier_db_user:ZwLZCi4O46uic1Wv@cluster0.k0d7xeb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"  # or your MongoDB connection string
 client = MongoClient(MONGO_URI)
-db = client["acx_bot"]
+db = client["xAkairo"]
 filters_collection = db["filters"]
 users_collection = db["users"]
 
@@ -32,23 +32,25 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         upsert=True
     )
     
-    image_url = "https://files.catbox.moe/1c25gl.jpg"  # Replace with your image URL
+    image_url = "https://files.catbox.moe/j7u2pk.jpg"  # Replace with your image URL
     # Use the requested link scheme for the user mention:
     mention = f'<a href="tg://openmessage?user_id={user.id}">{user.full_name}</a>'
     caption = (
-        f"𝖧i {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 🙌\n"
-        "I ᴀᴍ ᴀ ᴄᴜsᴛᴏᴍ ʙᴏᴛ ᴍᴀᴅᴇ ғᴏʀ ᴛᴇᴀᴍ ACXᴀɴɪᴍᴇ...\n"
-        'Bʏ <a href="https://t.me/ThronexCodex">𝗧𝗵𝗿𝗼𝗻𝗲𝘅 𝗖𝗼𝗱𝗲𝘅</a>'
+        f"𝖧ello {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 💌\n"
+        "I ᴀᴍ ᴀ ᴄᴜsᴛᴏᴍ ʙᴏᴛ ᴍᴀᴅᴇ ғᴏʀ ᴛᴇᴀᴍ ...𝗢ʀ𝐛ɪɴᴇx𝗫\n"
+       •────────────────────────•
+       ❖ 𝐏ᴏᴡᴇʀᴇᴅ ʙʏ  :-  <a href="https://t.me/xAkairo">𝘼𝙠𝙖𝙞𝙧𝙤</a>
+       •────────────────────────•
     )
     
     # Inline buttons arranged in three rows:
     buttons = [
-        [InlineKeyboardButton("Lᴇᴛ's Rᴏʟʟ Bᴀʙʏ", url="http://t.me/GFilterBotRobot?startgroup=botstart")],
+        [InlineKeyboardButton("➕ 𝑳𝒆𝒕𝒔 𝑹𝒐𝒍𝒍 𝑩𝒂𝒃𝒚 ➕", url="http://t.me/GFilterBotRobot?startgroup=botstart")],
         [
-            InlineKeyboardButton("Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ", url="https://t.me/Thronex_Chats"),
-            InlineKeyboardButton("Sᴜᴘᴘᴏʀᴛ ᴄʜᴀɴɴᴇʟ", url="https://t.me/ThronexCodex")
+            InlineKeyboardButton("❖ 𝑺𝒖𝒑𝒑𝒐𝒓𝒕 𝑪𝒉𝒂𝒕 ❖", url="https://t.me/Thronex_Chats"),
+            InlineKeyboardButton("❖ 𝑺𝒖𝒑𝒑𝒐𝒓𝒕 𝑪𝒉𝒂𝒏𝒏𝒆𝒍 ❖", url="https://t.me/ThronexCodex")
         ],
-        [InlineKeyboardButton("Oᴡɴᴇʀ", url="https://t.me/xAkairo")]
+        [InlineKeyboardButton("𝑶𝒘𝒏𝒆𝒓 🌐", url="https://t.me/xAkairo")]
     ]
     reply_markup = InlineKeyboardMarkup(buttons)
     
@@ -166,7 +168,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         if filter_doc["keyword"] in message_text:
             # Hyperlink the text using HTML formatting
             reply_text = f'<a href="{filter_doc["link"]}">{filter_doc["text"]}</a>'
-            button = InlineKeyboardButton("🔰 Wᴀᴛᴄʜ Nᴏᴡ 🔰", url=filter_doc["link"])
+            button = InlineKeyboardButton("🔰 𝑾𝒂𝒕𝒄𝒉 𝑵𝒐𝒘 🔰", url=filter_doc["link"])
             reply_markup = InlineKeyboardMarkup([[button]])
             await update.message.reply_text(
                 reply_text,
