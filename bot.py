@@ -14,7 +14,7 @@ filters_collection = db["filters"]
 users_collection = db["users"]
 
 # Set your owner Telegram ID (only the owner can use certain commands)
-OWNER_ID = 8156708830 7968389767 8085299659  # Replace with your actual Telegram user ID
+OWNER_ID = 8156708830  # Replace with your actual Telegram user ID
 
 # Configure logging
 logging.basicConfig(
