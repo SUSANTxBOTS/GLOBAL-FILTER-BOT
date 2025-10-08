@@ -11,7 +11,7 @@ MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://herukosupplier_db_user:ZwLZCi4
 TMDB_API_KEY = "371c10909d11f866a3a1786e3a43cd8e"
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767]
-BACKUP_CHANNEL = "https://t.me/ThronexCodex"
+BACKUP_CHANNEL = "https://t.me/+6y9Ktm_6Oho2M2Q1"
 
 try:
     import requests
@@ -353,8 +353,8 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
                     caption = f'<b><i><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></i></b>'
                     backdrop_url = None
                 
-                button1 = InlineKeyboardButton("🔰 𝖶𝖺𝗍𝖼𝗁 𝖭𝗈𝗐 🔰", url=filter_doc["link"])
-                button2 = InlineKeyboardButton(" 𝖡𝖺𝖼𝗄𝗎𝗉 ♻️", url=BACKUP_CHANNEL)
+                button1 = InlineKeyboardButton("🝰 𝐖𝐚𝐭𝐜𝐡 𝐍𝐨𝐰 🝰 ", url=filter_doc["link"])
+                button2 = InlineKeyboardButton("⧉ 𝐁𝐚𝐜𝐤 𝐔𝐩 ⧉", url=BACKUP_CHANNEL)
                 reply_markup = InlineKeyboardMarkup([[button1], [button2]])
                 
                 if backdrop_url:
