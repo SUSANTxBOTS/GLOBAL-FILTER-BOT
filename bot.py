@@ -165,17 +165,27 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     for filter_doc in filters_collection.find():
         if filter_doc["keyword"] in message_text:
             # Hyperlink the text using HTML formatting
-            reply_text = f'<b><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></b>'
-            button = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
-            button2 = InlineKeyboardButton2("⧉ 𝗕𝗮𝗰𝗸 𝗨𝗽 ⧉", url='https://t.me/ThronexCodex')
-            reply_markup = InlineKeyboardMarkup([[button, button2]])
-            await update.message.reply_text(
-                reply_text,
-                reply_markup=reply_markup,
-                parse_mode="HTML",
-                disable_web_page_preview=True
-            )
-            break  # Only respond to the first matching keyword
+            # The reply text remains the same, providing a clickable link
+reply_text = f'<b><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></b>'
+
+# Create the first button
+button1 = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
+
+# Create the second button, which is identical to the first
+button2 = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
+
+# The key change: The list of buttons in the inner list of InlineKeyboardMarkup 
+# now contains BOTH button1 and button2.
+reply_markup = InlineKeyboardMarkup([[button1, button2]])
+
+# Send the message
+await update.message.reply_text(
+    reply_text,
+    reply_markup=reply_markup,
+    parse_mode="HTML",
+    disable_web_page_preview=True
+)
+break # Only respond to the first matching keyword
 
 
 def main():
