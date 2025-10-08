@@ -165,8 +165,8 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     for filter_doc in filters_collection.find():
         if filter_doc["keyword"] in message_text:
             # Hyperlink the text using HTML formatting
-            reply_text = f'<a href="{filter_doc["link"]}">{filter_doc["text"]}</a>'
-            button = InlineKeyboardButton("🔰 𝙒𝘼𝙏𝘾𝙃 𝙉𝙊𝙒 🔰", url=filter_doc["link"])
+            reply_text = f'<b><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></b>'
+            button = InlineKeyboardButton("🝰 𝗪𝗮𝘁𝗰𝗵 𝗡𝗼𝘄 🝰", url=filter_doc["link"])
             reply_markup = InlineKeyboardMarkup([[button]])
             await update.message.reply_text(
                 reply_text,
