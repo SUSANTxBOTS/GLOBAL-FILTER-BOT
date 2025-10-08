@@ -155,8 +155,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         mention = f'<a href="tg://openmessage?user_id={user.id}">{user.first_name}</a>'
         
         caption = (
-            f"<b>𝖧𝖾𝗅𝗅𝗈 {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 💌</b>\n\n"
-            "<b>𝖨 𝖺𝗆 𝖺 𝖼𝗎𝗌𝗍𝗈𝗆 𝖻𝗈𝗍 𝗆𝖺𝖽𝖾 𝖿𝗈𝗋 𝗍𝖾𝖺𝗆 ...𝖮𝗋𝖻𝗂𝗇𝖾𝗑𝖷 𝖭𝖾𝗍𝗐𝗈𝗋𝗄</b>\n\n"
+            f"<b>𝖧𝖾𝗅𝗅𝗈 {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 💌</b>\n"
+            "<b>𝖨 𝖺𝗆 𝖺 𝖼𝗎𝗌𝗍𝗈𝗆 𝖻𝗈𝗍 𝗆𝖺𝖽𝖾 𝖿𝗈𝗋 𝗍𝖾𝖺𝗆 ...𝖮𝗋𝖻𝗂𝗇𝖾𝗑𝖷 𝖭𝖾𝗍𝗐𝗈𝗋𝗄</b>\n"
             '<b>❖ 𝖯𝗈𝗐𝖾𝗋𝖾𝖽 𝖻𝗒  :- <a href="https://t.me/xAkairo">𝘼𝙠𝙖𝙞𝙧𝙤</a></b>'
         )
         
@@ -181,7 +181,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         try:
             await update.message.reply_text(
                 "🤖 <b>Global Filter Bot</b>\n\n"
-                "🔹 <b>Developer:</b> @xFlexyy\n"
+                "🔹 <b>Developer:</b> @xAkairo\n"
                 "🔹 <b>Support:</b> @Thronex_Chats\n"
                 "🔹 <b>Channel:</b> @ThronexCodex\n\n"
                 "<i>Use /help to see all commands</i>",
@@ -353,8 +353,8 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
                     caption = f'<b><i><a href="{filter_doc["link"]}">{filter_doc["text"]}</a></i></b>'
                     backdrop_url = None
                 
-                button1 = InlineKeyboardButton("⌯ 𝖶𝖺𝗍𝖼𝗁 𝖭𝗈𝗐 ⌯", url=filter_doc["link"])
-                button2 = InlineKeyboardButton("⌯ 𝖡𝖺𝖼𝗄𝗎𝗉 ⌯", url=BACKUP_CHANNEL)
+                button1 = InlineKeyboardButton("🔰 𝖶𝖺𝗍𝖼𝗁 𝖭𝗈𝗐 🔰", url=filter_doc["link"])
+                button2 = InlineKeyboardButton(" 𝖡𝖺𝖼𝗄𝗎𝗉 ♻️", url=BACKUP_CHANNEL)
                 reply_markup = InlineKeyboardMarkup([[button1], [button2]])
                 
                 if backdrop_url:
