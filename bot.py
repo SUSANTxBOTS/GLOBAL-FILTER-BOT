@@ -178,7 +178,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         )
     except Exception as e:
         logger.error(f"Error in start command: {e}")
-        await update.message.reply_text("❌ An error occurred. Please try again.")
+        try:
+            await update.message.reply_text(
+                "🤖 <b>Global Filter Bot</b>\n\n"
+                "🔹 <b>Developer:</b> @xFlexyy\n"
+                "🔹 <b>Support:</b> @Thronex_Chats\n"
+                "🔹 <b>Channel:</b> @ThronexCodex\n\n"
+                "<i>Use /help to see all commands</i>",
+                parse_mode="HTML"
+            )
+        except:
+            pass
 
 async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
@@ -480,8 +490,8 @@ def main():
                 print("⚠️  TMDB Feature: Disabled")
             
             application.run_polling(
-                poll_interval=2,
-                timeout=25,
+                poll_interval=3,
+                timeout=30,
                 drop_pending_updates=True,
                 allowed_updates=Update.ALL_TYPES
             )
