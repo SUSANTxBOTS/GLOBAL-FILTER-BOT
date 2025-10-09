@@ -10,7 +10,7 @@ API_TOKEN = os.getenv('BOT_TOKEN', '7704955106:AAFEJKG0O2sONGaR6ZQNnRSwZ79sYqOri
 MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://xAkario_global_filter_db:xGoqG7c0a2tbl655@cluster0.yaqozuq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 TMDB_API_KEY = "371c10909d11f866a3a1786e3a43cd8e"
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
-OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767, 8085299659]
+OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767, 8085299659, 8024490450]
 BACKUP_CHANNEL = "https://t.me/+zSzt4s9xq_ZmZWZl"
 BOT_CHANNEL = "https://t.me/ThronexCodex"
 #///////////////////////////////////////////////////////////////////////////////
