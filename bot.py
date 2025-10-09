@@ -5,14 +5,15 @@ from pymongo import MongoClient
 import time
 import sys
 import os
-
+#fill the variables ////////////////////////////////////////////////////////////
 API_TOKEN = os.getenv('BOT_TOKEN', '7704955106:AAFEJKG0O2sONGaR6ZQNnRSwZ79sYqOriIc')
 MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://herukosupplier_db_user:ZwLZCi4O46uic1Wv@cluster0.k0d7xeb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 TMDB_API_KEY = "371c10909d11f866a3a1786e3a43cd8e"
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767, 8085299659]
 BACKUP_CHANNEL = "https://t.me/+zSzt4s9xq_ZmZWZl"
-
+BOT_CHANNEL = "https://t.me/ThronexCodex'
+#///////////////////////////////////////////////////////////////////////////////
 try:
     import requests
     TMDB_AVAILABLE = True
@@ -153,8 +154,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         
         caption = (
             f"<b>𝖧𝖾𝗅𝗅𝗈 {mention}, 𝖭𝗂𝖼𝖾 𝗍𝗈 𝗆𝖾𝖾𝗍 𝗒𝗈𝗎 💌</b>\n"
-            "<b>𝖨 𝖺𝗆 𝖺 𝖼𝗎𝗌𝗍𝗈𝗆 𝖻𝗈𝗍 𝗆𝖺𝖽𝖾 𝖿𝗈𝗋 𝗍𝖾𝖺𝗆 ...𝖮𝗋𝖻𝗂𝗇𝖾𝗑𝖷</b>\n"
-            '<b>❖ 𝖯𝗈𝗐𝖾𝗋𝖾𝖽 𝖻𝗒  :- <a href="https://t.me/xAkairo">𝘼𝙠𝙖𝙞𝙧𝙤</a></b>'
+            "<b>𝖨 𝖺𝗆 𝖺 𝖼𝗎𝗌𝗍𝗈𝗆 𝖻𝗈𝗍 𝗆𝖺𝖽𝖾 𝖿𝗈𝗋 𝗍𝖾𝖺𝗆... 𝖮𝗋𝖻𝗂𝗇𝖾𝗑𝖷</b>\n"
+            '<b>❖ 𝖯𝗈𝗐𝖾𝗋𝖾𝖽 𝖻𝗒  :- <a href="https://t.me/xAkairo">𝖠𝗄𝖺𝗂𝗋𝗈 𝖩𝗈𝗋𝖾𝗇 !!</a></b>'
         )
         
         buttons = [
@@ -267,11 +268,11 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         filter_count = filters_collection.count_documents({})
         
         stats_text = (
-            f"<b>📊 Bot Statistics</b>\n\n"
+            f"<b><i><u>📊 Bot Statistics</u></i></b>\n\n"
             f"👥 <b>Total Users:</b> {user_count}\n"
             f"🔍 <b>Total Filters:</b> {filter_count}\n"
             f"⚡ <b>Bot Status:</b> Online\n"
-            f"🔧 <b>Developer:</b> @xFlexyy"
+            f"🔧 <b>Developer:</b> <a href="https://t.me/xAkairo">𝖠𝗄𝖺𝗂𝗋𝗈 𝖩𝗈𝗋𝖾𝗇 !!</a></b>"
         )
         
         await update.message.reply_text(stats_text, parse_mode="HTML")
@@ -316,7 +317,7 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
         await progress_msg.delete()
         await update.message.reply_text(
-            f"<b>✅ Broadcast Complete</b>\n\n"
+            f"<b><i>✅ Broadcast Complete</i></b>\n\n"
             f"✓ Success: {success}\n"
             f"✗ Failure: {failure}\n"
             f"📊 Total: {len(users)}",
@@ -351,8 +352,9 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
                     backdrop_url = None
                 
                 button1 = InlineKeyboardButton("🝰 𝙒𝙖𝙩𝙘𝙝 𝘼𝙣𝙙 𝘿𝙤𝙬𝙣𝙡𝙤𝙖𝙙 🝰 ", url=filter_doc["link"])
-                button2 = InlineKeyboardButton("⧉ 𝘽𝙖𝙘𝙠𝙐𝙥 𝘾𝙝𝙖𝙣𝙣𝙚𝙡 ⧉", url=BACKUP_CHANNEL)
-                reply_markup = InlineKeyboardMarkup([[button1], [button2]])
+                button2 = InlineKeyboardButton("𝘽𝙖𝙘𝙠𝙐𝙥 ⧉", url=BACKUP_CHANNEL)
+                button3 = InlineKeyboardButton("𝘽𝙤𝙩𝙯 🝰", url=BOT_CHANNEL)
+                reply_markup = InlineKeyboardMarkup([[button1], [button2, button3]])
                 
                 if backdrop_url:
                     try:
