@@ -196,13 +196,13 @@ async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
         args = update.message.text.split(" ", 1)
         if len(args) < 2:
-            await update.message.reply_text("𝖴𝗌𝖺𝗀𝖾: /setfilter 𝖪𝖾𝗒𝗐𝗈𝗋𝖽 - 𝖫𝗂𝗇𝗄")
+            await update.message.reply_text("𝖴𝗌𝖺𝗀𝖾: /setfilter 𝖪𝖾𝗒𝗐𝗈𝗋𝖽 - title - 𝖫𝗂𝗇𝗄")
             return
 
         try:
             keyword, text, link = [part.strip() for part in args[1].split(" - ", 2)]
         except ValueError:
-            await update.message.reply_text("𝖨𝗇𝖼𝗈𝗋𝗋𝖾𝖼𝗍 𝖿𝗈𝗋𝗆𝖺𝗍. 𝖯𝗅𝖾𝖺𝗌𝖾 𝗎𝗌𝖾: /setfilter 𝖪𝖾𝗒𝗐𝗈𝗋𝖽 - 𝖫𝗂𝗇𝗄")
+            await update.message.reply_text("𝖨𝗇𝖼𝗈𝗋𝗋𝖾𝖼𝗍 𝖿𝗈𝗋𝗆𝖺𝗍. 𝖯𝗅𝖾𝖺𝗌𝖾 𝗎𝗌𝖾: /setfilter 𝖪𝖾𝗒𝗐𝗈𝗋𝖽 - title - 𝖫𝗂𝗇𝗄")
             return
 
         keyword_lower = keyword.lower()
