@@ -268,11 +268,11 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         filter_count = filters_collection.count_documents({})
         
         stats_text = (
-            f"🚧 <b>Bot Statistics</b>\n\n"
-            f"👥 <b>Total Users:</b> {user_count}\n"
-            f"🔍 <b>Total Filters:</b> {filter_count}\n"
-            f"⚡ <b>Bot Status:</b> Online\n"
-            f"🔧 <b>Developer:</b> <a href="https://t.me/xAkairo">𝖠𝗄𝖺𝗂𝗋𝗈 𝖩𝗈𝗋𝖾𝗇 !!</a></b>"
+            f"🚧 <b>Bot Statistics</b>\n\n",
+            f"👥 <b>Total Users:</b> {user_count}\n",
+            f"🔍 <b>Total Filters:</b> {filter_count}\n",
+            f"⚡ <b>Bot Status:</b> Online\n",
+            f"🔧 <b>Developer:</b> <a href="https://t.me/xAkairo">𝖠𝗄𝖺𝗂𝗋𝗈 𝖩𝗈𝗋𝖾𝗇 !!</a></b>",
         )
         
         await update.message.reply_text(stats_text, parse_mode="HTML")
