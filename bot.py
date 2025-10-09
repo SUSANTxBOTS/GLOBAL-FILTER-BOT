@@ -268,7 +268,7 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         filter_count = filters_collection.count_documents({})
         
         stats_text = (
-            f"<b><i> 📊 Bot Statistics </i></b>\n\n"
+            f"<b>📊 Bot Statistics</b>\n\n"
             f"👥 <b>Total Users:</b> {user_count}\n"
             f"🔍 <b>Total Filters:</b> {filter_count}\n"
             f"⚡ <b>Bot Status:</b> Online\n"
