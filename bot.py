@@ -272,7 +272,7 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             f"👥 <b>Total Users:</b> {user_count}\n",
             f"🔍 <b>Total Filters:</b> {filter_count}\n",
             f"⚡ <b>Bot Status:</b> Online\n",
-            f"🔧 <b>Developer:</b> <a href="https://t.me/xAkairo">𝖠𝗄𝖺𝗂𝗋𝗈 𝖩𝗈𝗋𝖾𝗇 !!</a></b>",
+            f"🔧 <b>Developer:</b>@xAkairo</b>",
         )
         
         await update.message.reply_text(stats_text, parse_mode="HTML")
@@ -283,7 +283,7 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
         if update.effective_user.id not in OWNER_IDS:
-            await update.message.reply_text("𝖳𝖾𝗋𝖺 𝖯𝖺𝗉𝖺 @𝗑𝖥𝗅𝖾𝗑𝗒𝗒 𝖪𝗈 𝖡𝗈𝗅 𝖠𝖽𝖽 𝖪𝖺𝗋 𝖣𝖾𝗀𝖺")
+            await update.message.reply_text("𝖳𝖾𝗋𝖺 𝖯𝖺𝗉𝖺 @xAkairo 𝖪𝗈 𝖡𝗈𝗅 𝖠𝖽𝖽 𝖪𝖺𝗋 𝖣𝖾𝗀𝖺")
             return
 
         if not update.message.reply_to_message:
