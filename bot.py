@@ -7,7 +7,7 @@ import sys
 import os
 #fill the variables ////////////////////////////////////////////////////////////
 API_TOKEN = os.getenv('BOT_TOKEN', '7704955106:AAFEJKG0O2sONGaR6ZQNnRSwZ79sYqOriIc')
-MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://herukosupplier_db_user:ZwLZCi4O46uic1Wv@cluster0.k0d7xeb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+MONGO_URI = os.getenv('MONGO_URI', "mongodb+srv://xAkario_global_filter_db:xGoqG7c0a2tbl655@cluster0.yaqozuq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 TMDB_API_KEY = "371c10909d11f866a3a1786e3a43cd8e"
 TMDB_BASE_URL = "https://api.themoviedb.org/3"
 OWNER_IDS = [8156708830, 7125448912, 987654321, 7968389767, 8085299659]
@@ -23,7 +23,7 @@ except ImportError:
 try:
     client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=10000, connectTimeoutMS=10000, socketTimeoutMS=10000)
     client.admin.command('ping')
-    db = client["xAkairo"]
+    db = client["xAkario_global_filter_db"]
     filters_collection = db["filters"]
     users_collection = db["users"]
     print("✅ MongoDB connected successfully")
@@ -196,13 +196,13 @@ async def set_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
         args = update.message.text.split(" ", 1)
         if len(args) < 2:
-            await update.message.reply_text("𝖴𝗌𝖺𝗀𝖾: /setfilter 𝖪𝖾𝗒𝗐𝗈𝗋𝖽 - 𝖳𝗂𝗍𝗅𝖾 - 𝖫𝗂𝗇𝗄")
+            await update.message.reply_text("𝖴𝗌𝖺𝗀𝖾: /setfilter 𝖪𝖾𝗒𝗐𝗈𝗋𝖽 - 𝖫𝗂𝗇𝗄")
             return
 
         try:
             keyword, text, link = [part.strip() for part in args[1].split(" - ", 2)]
         except ValueError:
-            await update.message.reply_text("𝖨𝗇𝖼𝗈𝗋𝗋𝖾𝖼𝗍 𝖿𝗈𝗋𝗆𝖺𝗍. 𝖯𝗅𝖾𝖺𝗌𝖾 𝗎𝗌𝖾: /setfilter 𝖪𝖾𝗒𝗐𝗈𝗋𝖽 - 𝖳𝗂𝗍𝗅𝖾 - 𝖫𝗂𝗇𝗄")
+            await update.message.reply_text("𝖨𝗇𝖼𝗈𝗋𝗋𝖾𝖼𝗍 𝖿𝗈𝗋𝗆𝖺𝗍. 𝖯𝗅𝖾𝖺𝗌𝖾 𝗎𝗌𝖾: /setfilter 𝖪𝖾𝗒𝗐𝗈𝗋𝖽 - 𝖫𝗂𝗇𝗄")
             return
 
         keyword_lower = keyword.lower()
@@ -261,7 +261,7 @@ async def list_filters(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
         if update.effective_user.id not in OWNER_IDS:
-            await update.message.reply_text("𝖳𝖾𝗋𝖺 𝖯𝖺𝗉𝖺 @𝗑𝖥𝗅𝖾𝗑𝗒𝗒 𝖪𝗈 𝖡𝗈𝗅 𝖠𝖽𝖽 𝖪𝖺𝗋 𝖣𝖾𝗀𝖺")
+            await update.message.reply_text("𝖳𝖾𝗋𝖺 𝖯𝖺𝗉𝖺 @xAkario 𝖪𝗈 𝖡𝗈𝗅 𝖠𝖽𝖽 𝖪𝖺𝗋 𝖣𝖾𝗀𝖺")
             return
 
         user_count = users_collection.count_documents({})
