@@ -352,7 +352,7 @@ async def reply_to_keyword(update: Update, context: ContextTypes.DEFAULT_TYPE) -
                     backdrop_url = None
                 
                 button1 = InlineKeyboardButton("🎥 ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ 📤", url=filter_doc["link"])
-                reply_markup = InlineKeyboardMarkup([[[button1]]])
+                reply_markup = InlineKeyboardMarkup([[button1]])
                 
                 if backdrop_url:
                     try:
