@@ -261,7 +261,7 @@ async def list_filters(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
         if update.effective_user.id not in OWNER_IDS:
-            await update.message.reply_text("𝖳𝖾𝗋𝖺 𝖯𝖺𝗉𝖺 @xAkario 𝖪𝗈 𝖡𝗈𝗅 𝖠𝖽𝖽 𝖪𝖺𝗋 𝖣𝖾𝗀𝖺")
+            await update.message.reply_text("𝖳𝖾𝗋𝖺 𝖯𝖺𝗉𝖺 @xAkairo 𝖪𝗈 𝖡𝗈𝗅 𝖠𝖽𝖽 𝖪𝖺𝗋 𝖣𝖾𝗀𝖺")
             return
 
         user_count = users_collection.count_documents({})
